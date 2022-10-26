@@ -1,5 +1,7 @@
 package board.User.Model;
 
+import board.Security.Util.AESUtil;
+import board.Security.Util.SHA256Util;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +24,13 @@ public class User {
     private String email;
 
     private String password;
+
+
+    public void encodeId(AESUtil aesUtil) throws Exception {
+        this.email = aesUtil.encode(email);
+    }
+    public void encodePassword(){
+        this.password = SHA256Util.encode(password);
+    }
 
 }
