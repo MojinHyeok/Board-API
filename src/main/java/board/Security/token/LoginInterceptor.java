@@ -17,11 +17,16 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = AuthorizationExtractor.extractAccessToken(request);
-        if (isInvalidToken(token)) {
+        String userEmail = jwtTokenProvider.extractUserEmail(token);
+        if (isInvalidToken(token) || checkSameToken(token, userEmail)) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
         }
         return true;
+    }
+
+    private boolean checkSameToken(String token, String userEmail) {
+        return !jwtTokenProvider.checkSameToken(token, userEmail);
     }
 
     private boolean isInvalidToken(String token) {

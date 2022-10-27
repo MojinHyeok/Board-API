@@ -1,6 +1,9 @@
 package board.Security.token;
 
+import board.Security.token.Model.Token;
+import board.Security.token.Service.TokenService;
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -11,6 +14,10 @@ public class JwtTokenProvider {
     private static final String SECRET_KEY = "sercret";
     private static final int SIXTYMINUTE = 1000 * 60 * 60;
     private static final int ONEDAY = 1000 * 60 * 60 * 24;
+
+
+    @Autowired
+    TokenService tokenService;
 
     public String createAccessToken(String userEmail) {
         Date now = new Date();
@@ -43,7 +50,7 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-    public String getParsedClaims(String token) {
+    public String extractUserEmail(String token) {
         Claims claims;
         try {
             claims = Jwts.parser()
@@ -66,6 +73,12 @@ public class JwtTokenProvider {
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
+    }
+
+    public boolean checkSameToken(String token, String userEmail) {
+        Token saveToken = tokenService.getTokenByUserEmail(userEmail);
+        saveToken.validateSameToken(token);
+        return true;
     }
 
 }
