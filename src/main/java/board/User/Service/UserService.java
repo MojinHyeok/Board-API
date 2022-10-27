@@ -15,21 +15,21 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User RegistUser(UserDto userDto) throws Exception {
+    public void registUser(UserDto userDto) throws Exception {
         AESUtil aesUtil = new AESUtil();
         User user = User.builder().email(userDto.getEmail())
                 .password(userDto.getPassword()).build();
         user.encodeId(aesUtil);
         user.encodePassword();
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     @SneakyThrows
-    public void login(UserDto userDto){
+    public void login(UserDto userDto) {
         AESUtil aesUtil = new AESUtil();
         String userEmail = aesUtil.encode(userDto.getEmail());
         String password = SHA256Util.encode(userDto.getPassword());
-        User user =userRepository.findByEmailAndPassword(userEmail,password).orElseThrow();
+        User user = userRepository.findByEmailAndPassword(userEmail, password).orElseThrow();
     }
 
 }
