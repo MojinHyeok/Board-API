@@ -34,7 +34,7 @@ public class UserController {
         return "hello";
     }
 
-    @PostMapping("/user/regist")
+    @PostMapping("/user")
     public ResponseEntity<Map<String, Object>> regist(@RequestBody UserDto user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         userService.registUser(user);

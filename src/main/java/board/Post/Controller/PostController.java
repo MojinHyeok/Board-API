@@ -18,7 +18,7 @@ public class PostController {
     @Autowired
     PostService postService;
 
-    @PostMapping("/post/regist")
+    @PostMapping("/post")
     public ResponseEntity<Map<String, Object>> registPost(@RequestBody newPostDto postDto) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         postService.registPost(postDto);
