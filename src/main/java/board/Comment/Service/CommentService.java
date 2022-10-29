@@ -5,6 +5,8 @@ import board.Comment.Dto.newCommentDto;
 import board.Comment.Model.Comment;
 import board.Comment.Repository.CommentRepository;
 import board.Comment.ServiceSupport.CommentServiceSupport;
+import board.Post.Model.Post;
+import board.Post.Repository.PostRepository;
 import board.Security.Util.AESUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +20,9 @@ public class CommentService {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    PostRepository postRepository;
 
     @Autowired
     CommentServiceSupport commentServiceSupport;
@@ -37,6 +42,7 @@ public class CommentService {
     public List<CommentResponseDto> getCommentsByPostId(int postId, int requestPageNo) throws Exception {
         AESUtil aesUtil = new AESUtil();
         PageImpl<Comment> pageInfo;
+        Post post = postRepository.findByPostId(postId).orElseThrow();
         pageInfo = commentServiceSupport.getCommentsByPostId(postId, requestPageNo);
         List<Comment> comments = pageInfo.getContent();
         for (Comment comment : comments) {
