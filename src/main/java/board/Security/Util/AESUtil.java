@@ -21,7 +21,7 @@ public class AESUtil {
     private String iv;
     private Key keySpec;
 
-    public AESUtil() throws UnsupportedEncodingException {
+    public AESUtil() throws Exception {
 
         this.iv = SECRET_KEY.substring(0, 16);
 

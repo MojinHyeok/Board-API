@@ -28,12 +28,6 @@ public class UserController {
     @Autowired
     private TokenService tokenService;
 
-
-    @GetMapping("/")
-    public String hello() {
-        return "hello";
-    }
-
     @PostMapping("/user")
     public ResponseEntity<Map<String, Object>> regist(@RequestBody UserDto user) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();

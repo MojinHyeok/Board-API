@@ -3,6 +3,7 @@ package board.User.Service;
 import board.Security.Util.AESUtil;
 import board.Security.Util.SHA256Util;
 import board.User.Dto.UserDto;
+import board.User.Model.Email;
 import board.User.Model.User;
 import board.User.Repository.UserRepository;
 import lombok.SneakyThrows;
@@ -18,7 +19,7 @@ public class UserService {
     public void registUser(UserDto userDto) throws Exception {
         AESUtil aesUtil = new AESUtil();
         User user = new User(userDto.getEmail(),userDto.getPassword());
-        user.getEmail().encodeId(aesUtil);
+        user.getEmail().encodeEmail(aesUtil);
         user.encodePassword();
         userRepository.save(user);
     }
@@ -26,7 +27,8 @@ public class UserService {
     @SneakyThrows
     public void login(UserDto userDto) {
         AESUtil aesUtil = new AESUtil();
-        String userEmail = aesUtil.encode(userDto.getEmail());
+        Email userEmail = new Email(userDto.getEmail());
+        userEmail.encodeEmail(aesUtil);
         String password = SHA256Util.encode(userDto.getPassword());
         User user = userRepository.findByEmailAndPassword(userEmail, password).orElseThrow();
     }

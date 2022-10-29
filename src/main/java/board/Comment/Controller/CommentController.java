@@ -1,5 +1,6 @@
 package board.Comment.Controller;
 
+import board.Comment.Dto.CommentResponseDto;
 import board.Comment.Dto.newCommentDto;
 import board.Comment.Model.Comment;
 import board.Comment.Service.CommentService;
@@ -18,7 +19,7 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/commnet")
+    @PostMapping("/comment")
     public ResponseEntity<Map<String, Object>> registComment(@RequestBody newCommentDto commnetDto) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         commentService.registComment(commnetDto);
@@ -27,9 +28,9 @@ public class CommentController {
     }
 
     @GetMapping("/comment")
-    public ResponseEntity<Map<String, Object>> getComments(@RequestParam int postId, @RequestParam int requestPageNo) {
+    public ResponseEntity<Map<String, Object>> getComments(@RequestParam int postId, @RequestParam int requestPageNo) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
-        List<Comment> comments = commentService.getCommentsByPostId(postId, requestPageNo);
+        List<CommentResponseDto> comments = commentService.getCommentsByPostId(postId, requestPageNo);
         resultMap.put("data", comments);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }

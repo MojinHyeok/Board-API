@@ -3,6 +3,7 @@ package board.User.Model;
 import board.Security.Util.AESUtil;
 
 import javax.persistence.Embeddable;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Embeddable
@@ -31,8 +32,20 @@ public class Email {
         }
     }
 
-    public void encodeId(AESUtil aesUtil) throws Exception {
+    public void encodeEmail(AESUtil aesUtil) throws Exception {
         this.email = aesUtil.encode(email);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Email)) return false;
+        Email email1 = (Email) o;
+        return Objects.equals(email, email1.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
 }

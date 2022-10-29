@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Comment extends BaseEntity {
 
     @Id
@@ -26,5 +25,15 @@ public class Comment extends BaseEntity {
 
     private String content;
 
-    private String writer;
+    @Embedded
+    private Writer writer;
+
+    @Builder
+    public Comment(int postId, int parentCommentId, String content,String writer){
+        this.postId = postId;
+        this.parentCommentId = parentCommentId;
+        this.content = content;
+        this.writer = new Writer(writer);
+    }
+
 }
