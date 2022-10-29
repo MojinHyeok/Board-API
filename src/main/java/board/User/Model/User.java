@@ -2,10 +2,7 @@ package board.User.Model;
 
 import board.Security.Util.AESUtil;
 import board.Security.Util.SHA256Util;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -21,14 +18,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
-    private String email;
+    @Embedded
+    private Email email;
 
     private String password;
 
-
-    public void encodeId(AESUtil aesUtil) throws Exception {
-        this.email = aesUtil.encode(email);
+    @Builder
+    public User(String email, String password){
+        this.email = new Email(email);
+        this.password = password;
     }
+
+
     public void encodePassword(){
         this.password = SHA256Util.encode(password);
     }
