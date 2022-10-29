@@ -15,7 +15,7 @@ public class Email {
     private static final String EMAIL_NULL_OR_BLANK_ERROR = "이메일은 빈값 혹은 Null이 될 수 없습니다.";
     private String email;
 
-    private  Email(){
+    private Email() {
     }
 
     public Email(String email) {
@@ -24,10 +24,10 @@ public class Email {
     }
 
     private void validate(String email) {
-        if( !PATTERN.matcher(email).matches()){
+        if (!PATTERN.matcher(email).matches()) {
             throw new RuntimeException(EMAIL_PATTERN_ERROR);
         }
-        if(email ==null || email.isEmpty()){
+        if (email == null || email.isEmpty()) {
             throw new RuntimeException(EMAIL_NULL_OR_BLANK_ERROR);
         }
     }

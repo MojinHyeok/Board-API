@@ -23,13 +23,13 @@ public class User {
     private String password;
 
     @Builder
-    public User(String email, String password){
+    public User(String email, String password) {
         this.email = new Email(email);
         this.password = password;
     }
 
 
-    public void encodePassword(){
+    public void encodePassword() {
         this.password = SHA256Util.encode(password);
     }
 

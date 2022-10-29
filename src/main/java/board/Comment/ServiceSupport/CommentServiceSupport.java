@@ -15,18 +15,19 @@ public class CommentServiceSupport extends QuerydslRepositorySupport {
 
 
     private QComment comment = QComment.comment;
+
     public CommentServiceSupport() {
         super(Comment.class);
     }
 
-    public PageImpl<Comment> getCommentsByPostId(int postId,int requestPageNo){
+    public PageImpl<Comment> getCommentsByPostId(int postId, int requestPageNo) {
         JPQLQuery<Comment> query = getQuerydsl().createQuery()
                 .select(comment)
                 .from(comment)
                 .where(comment.postId.eq(postId))
                 .orderBy(comment.createdAt.asc());
         PageRequest pageRequest = PageRequest.of(requestPageNo, 10);
-        List<Comment> list = getQuerydsl().applyPagination(pageRequest,query).fetch();
-        return new PageImpl<>(list,pageRequest,query.fetchCount());
+        List<Comment> list = getQuerydsl().applyPagination(pageRequest, query).fetch();
+        return new PageImpl<>(list, pageRequest, query.fetchCount());
     }
 }

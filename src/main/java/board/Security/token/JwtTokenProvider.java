@@ -31,25 +31,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken() {
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + ONEDAY);
-
-        return Jwts.builder()
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-                .compact();
-    }
-
-    public String getPayload(String token) {
-        return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-    }
-
     public String extractUserEmail(String token) {
         Claims claims;
         try {

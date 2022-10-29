@@ -6,7 +6,6 @@ import board.Comment.Model.Comment;
 import board.Comment.Repository.CommentRepository;
 import board.Comment.ServiceSupport.CommentServiceSupport;
 import board.Security.Util.AESUtil;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
@@ -23,8 +22,7 @@ public class CommentService {
     @Autowired
     CommentServiceSupport commentServiceSupport;
 
-    @SneakyThrows
-    public void registComment(newCommentDto commentDto) {
+    public void registComment(newCommentDto commentDto) throws Exception {
         AESUtil aesUtil = new AESUtil();
         Comment comment = Comment.builder()
                 .postId(commentDto.getPostId())

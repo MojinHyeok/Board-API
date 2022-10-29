@@ -1,12 +1,13 @@
 package board.Security.token;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
 public class AuthorizationExtractor {
 
-    private static final  String BEARER = "Bearer";
+    private static final String BEARER = "Bearer";
 
     public static String extractAccessToken(HttpServletRequest request) {
         Enumeration<String> headers = request.getHeaders(AUTHORIZATION);

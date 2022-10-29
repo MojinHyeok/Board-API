@@ -21,9 +21,10 @@ public class TokenService {
         tokenRepository.save(saveToekn);
     }
 
-    public Token getTokenByUserEmail(String userEmail){
+    public Token getTokenByUserEmail(String userEmail) {
         return tokenRepository.findByUserEmail(userEmail).orElseThrow(InvalidTokenException::new);
     }
+
     @Transactional
     public void deleteToken(String userEmail) {
         tokenRepository.deleteAllByUserEmail(userEmail);

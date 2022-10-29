@@ -18,7 +18,7 @@ public class UserService {
 
     public void registUser(UserDto userDto) throws Exception {
         AESUtil aesUtil = new AESUtil();
-        User user = new User(userDto.getEmail(),userDto.getPassword());
+        User user = new User(userDto.getEmail(), userDto.getPassword());
         user.getEmail().encodeEmail(aesUtil);
         user.encodePassword();
         userRepository.save(user);

@@ -2,7 +2,6 @@ package board.Comment.Controller;
 
 import board.Comment.Dto.CommentResponseDto;
 import board.Comment.Dto.newCommentDto;
-import board.Comment.Model.Comment;
 import board.Comment.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
