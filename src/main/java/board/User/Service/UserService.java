@@ -3,6 +3,7 @@ package board.User.Service;
 import board.Security.Util.AESUtil;
 import board.Security.Util.SHA256Util;
 import board.User.Dto.UserDto;
+import board.User.Exception.LoginFailException;
 import board.User.Model.User;
 import board.User.Repository.UserRepository;
 import lombok.SneakyThrows;
@@ -29,7 +30,7 @@ public class UserService {
         AESUtil aesUtil = new AESUtil();
         String userEmail = aesUtil.encode(userDto.getEmail());
         String password = SHA256Util.encode(userDto.getPassword());
-        User user = userRepository.findByEmailAndPassword(userEmail, password).orElseThrow();
+        User user = userRepository.findByEmailAndPassword(userEmail, password).orElseThrow(LoginFailException::new);
     }
 
 }
