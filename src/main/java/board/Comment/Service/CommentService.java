@@ -18,14 +18,17 @@ import java.util.stream.Collectors;
 @Service
 public class CommentService {
 
-    @Autowired
-    CommentRepository commentRepository;
 
-    @Autowired
-    PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
+    private final CommentServiceSupport commentServiceSupport;
 
-    @Autowired
-    CommentServiceSupport commentServiceSupport;
+
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository, CommentServiceSupport commentServiceSupport) {
+        this.commentRepository = commentRepository;
+        this.postRepository = postRepository;
+        this.commentServiceSupport = commentServiceSupport;
+    }
 
     public void registComment(newCommentDto commentDto) throws Exception {
         AESUtil aesUtil = new AESUtil();

@@ -2,6 +2,7 @@ package board.User.Controller;
 
 import board.Security.token.AuthorizationExtractor;
 import board.Security.token.JwtTokenProvider;
+import board.Security.token.Model.Token;
 import board.Security.token.Service.TokenService;
 import board.User.Dto.UserDto;
 import board.User.Model.User;
@@ -19,14 +20,15 @@ import java.util.Map;
 @RestController
 public class UserController {
 
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserService userService;
+    private final TokenService tokenService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private TokenService tokenService;
+    public UserController(JwtTokenProvider jwtTokenProvider, UserService userService, TokenService tokenService) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userService = userService;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping("/user")
     public ResponseEntity<Map<String, Object>> regist(@RequestBody UserDto user) throws Exception {

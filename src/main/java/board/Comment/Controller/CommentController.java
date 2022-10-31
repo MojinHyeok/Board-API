@@ -15,8 +15,11 @@ import java.util.Map;
 @RestController
 public class CommentController {
 
-    @Autowired
-    CommentService commentService;
+    private final CommentService commentService;
+
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
 
     @PostMapping("/comment")
     public ResponseEntity<Map<String, Object>> registComment(@RequestBody newCommentDto commnetDto) throws Exception {
@@ -27,7 +30,7 @@ public class CommentController {
     }
 
     @GetMapping("/comment")
-    public ResponseEntity<Map<String, Object>> getComments(@RequestParam int postId, @RequestParam int requestPageNo) throws Exception{
+    public ResponseEntity<Map<String, Object>> getComments(@RequestParam int postId, @RequestParam int requestPageNo) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
         List<CommentResponseDto> comments = commentService.getCommentsByPostId(postId, requestPageNo);
         resultMap.put("data", comments);

@@ -13,12 +13,12 @@ public class ControllerAdvice {
 	
 	
 	@ExceptionHandler(LoginFailException.class)
-	public ResponseEntity handleLoginFailException(LoginFailException e){
+	public ResponseEntity<String> handleLoginFailException(LoginFailException e){
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	}
 	
 	@ExceptionHandler(InvalidTokenException.class)
-	public ResponseEntity handleInvalidToken(InvalidTokenException e) {
+	public ResponseEntity<String> handleInvalidToken(InvalidTokenException e) {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	}
 }

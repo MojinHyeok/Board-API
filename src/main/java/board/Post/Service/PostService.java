@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostService {
 
-    @Autowired
-    PostRepository postRepository;
+
+    private final PostRepository postRepository;
+
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     public void registPost(newPostDto postDto) {
         Post post = Post.builder()

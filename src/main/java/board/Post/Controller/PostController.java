@@ -15,8 +15,11 @@ import java.util.Map;
 @RestController
 public class PostController {
 
-    @Autowired
-    PostService postService;
+    private final PostService postService;
+
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     @PostMapping("/post")
     public ResponseEntity<Map<String, Object>> registPost(@RequestBody newPostDto postDto) throws Exception {
